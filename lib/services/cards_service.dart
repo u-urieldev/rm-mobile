@@ -1,0 +1,24 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../models/card.dart';
+
+class CardsService {
+  static Future fetchCard() async {
+    try {
+      final headers = {"Content-Type": "application/json"};
+      final url = Uri.parse('http://localhost:3000/api/cards/get_card/72');
+      final response = await http.get(url, headers: headers);
+      AppCard card;
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseBody = json.decode(response.body);
+        card = AppCard.fromJson(responseBody['card']);
+
+        return card;
+      }
+      return "error";
+    } catch (e) {
+      print(e);
+    }
+  }
+}

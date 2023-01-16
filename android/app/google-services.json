@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "485031586723",
+    "project_id": "insults-app",
+    "storage_bucket": "insults-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485031586723:android:33a5b9ae79aea54ed6c816",
+        "android_client_info": {
+          "package_name": "com.example.insults_album"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485031586723-142lckdh6vv8bfmiq428bdsec4neq5l0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIz_R36pvBFnq4-wDUlCxQpdSUkawQjlY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485031586723-142lckdh6vv8bfmiq428bdsec4neq5l0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
