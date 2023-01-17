@@ -31,18 +31,13 @@ class MainPage extends StatelessWidget {
               transitionOnUserGestures: true,
               child: CustomButton(
                 label: const Text('Log In'),
-                action: () async {
-                  // Move to the next screen
-                  Navigator.pushNamed(context, '/login');
-                },
+                action: () async => Navigator.pushNamed(context, '/login'),
               ),
             ),
             const SizedBox(height: 18),
             CustomButton(
               label: const Text('Sing Up'),
-              action: () {
-                Navigator.pushNamed(context, '/register');
-              },
+              action: () => Navigator.pushNamed(context, '/register'),
             ),
           ],
         ),

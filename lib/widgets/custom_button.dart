@@ -38,21 +38,3 @@ class CustomButton extends StatelessWidget {
 
 
 // automaticallyImplyLeading
-
-// ElevatedButton(
-//               onPressed: () async {
-//                 final response = await authProvider.createUser(
-//                     emailText, passwordText, nameText);
-
-//                 if (response != "exito") {
-//                   print("Error: $response");
-//                   return;
-//                 }
-
-//                 print("Usuario creado correctamente");
-
-//                 // Move to the next screen
-//                 Navigator.pushNamed(context, '/cards');
-//               },
-//               child: const Text("Register"),
-//             )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insults_album/providers/auth_provider.dart';
+import 'package:insults_album/providers/loading_providers.dart';
 import 'screens/auth/login_page.dart';
 import 'screens/auth/register_page.dart';
 import 'package:insults_album/screens/main_page.dart';
@@ -25,7 +26,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => AuthProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => LoadingProvider())
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
