@@ -11,17 +11,17 @@ import 'dart:convert';
 class CardsPage extends StatelessWidget {
   const CardsPage({super.key});
 
-  void fetchCard() async {
-    AppCard card = await CardsService.fetchCard();
-    print(card.image);
-  }
+  // void fetchCard() async {
+  //   AppCard card = await CardsService.fetchCard();
+  //   print(card.image);
+  // }
 
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     final FirebaseFirestore _instance = FirebaseFirestore.instance;
 
-    fetchCard();
+    //fetchCard();
 
     return Scaffold(
       appBar: AppBar(

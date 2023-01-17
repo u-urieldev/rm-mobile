@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:insults_album/providers/auth_provider.dart';
-import 'package:insults_album/screens/login.dart';
+import 'screens/auth/login_page.dart';
+import 'screens/auth/register_page.dart';
+import 'package:insults_album/screens/main_page.dart';
 import 'package:insults_album/screens/cards.dart';
 import 'package:insults_album/screens/profile.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,7 +33,9 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: "/",
         routes: {
-          "/": (context) => LoginPage(),
+          "/": (context) => MainPage(),
+          "/login": (context) => LoginPage(),
+          "/register": (context) => RegisterPage(),
           "/cards": (context) => CardsPage(),
           "/profile": (context) => ProfilePage(),
         },
