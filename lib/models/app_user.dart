@@ -8,6 +8,7 @@ class AppUser {
     required this.cards,
     required this.friends,
     required this.requests,
+    required this.profile_image,
   });
 
   String uid;
@@ -16,6 +17,7 @@ class AppUser {
   List<String> cards;
   List<String> friends;
   List<String> requests;
+  String profile_image;
 
   Map<String, dynamic> toMap() => {
         "name": name,
@@ -23,7 +25,8 @@ class AppUser {
         "email": email,
         "cards": cards,
         "friends": friends,
-        "requests": requests
+        "requests": requests,
+        "profile_image": profile_image
       };
 
   factory AppUser.fromDocSnapshot(DocumentSnapshot snapshot) {
@@ -32,11 +35,11 @@ class AppUser {
   }
 
   factory AppUser.fromMap(Map<String, dynamic> json) => AppUser(
-        name: json['name'],
-        uid: json["uid"],
-        email: json['email'],
-        cards: List<String>.from(json['cards'].map((x) => x)),
-        friends: List<String>.from(json['friends'].map((x) => x)),
-        requests: List<String>.from(json['requests'].map((x) => x)),
-      );
+      name: json['name'],
+      uid: json["uid"],
+      email: json['email'],
+      cards: List<String>.from(json['cards'].map((x) => x)),
+      friends: List<String>.from(json['friends'].map((x) => x)),
+      requests: List<String>.from(json['requests'].map((x) => x)),
+      profile_image: json['profile_image']);
 }

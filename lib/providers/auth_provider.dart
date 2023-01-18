@@ -35,7 +35,8 @@ class AuthProvider extends ChangeNotifier {
           email: email,
           cards: [],
           friends: [],
-          requests: []);
+          requests: [],
+          profile_image: "");
 
       notifyListeners();
 
@@ -86,6 +87,7 @@ class AuthProvider extends ChangeNotifier {
 
         //Actualizar estado de app
         notifyListeners();
+        print(currentUser!.profile_image);
         return "exito";
       }
 
