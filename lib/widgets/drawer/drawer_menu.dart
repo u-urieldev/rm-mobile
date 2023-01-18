@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/auth_provider.dart';
-import '../constans/custom_colors.dart';
+import '../../providers/auth_provider.dart';
+import '../../constans/custom_colors.dart';
+import 'profile_image.dart';
+import 'custom_menu_list_title.dart';
 
 class Menu extends StatelessWidget {
   const Menu({
@@ -25,16 +27,7 @@ class Menu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(height: 25),
-                    CircleAvatar(
-                      radius: 55,
-                      backgroundColor: Colors.black,
-                      child: CircleAvatar(
-                        radius: 52,
-                        backgroundColor: Colors.black,
-                        backgroundImage: NetworkImage(
-                            authProvider.currentUser!.profile_image),
-                      ),
-                    ),
+                    const ProfileImage(),
                     const SizedBox(height: 17),
                     Text(
                       authProvider.currentUser!.name,
@@ -43,6 +36,7 @@ class Menu extends StatelessWidget {
                   ],
                 )),
           ),
+          // ---    Parte de abajo    ---
           Expanded(
             flex: 7,
             child: Container(
@@ -57,32 +51,34 @@ class Menu extends StatelessWidget {
                   borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
                 ),
                 child: Column(
-                  children: const [
-                    SizedBox(height: 15),
+                  children: [
+                    const SizedBox(height: 15),
                     CustomMenuListTitle(
                       icon: Icons.account_circle_outlined,
                       text: "Profile",
+                      onTap: () => print('Profile'),
                     ),
                     CustomMenuListTitle(
                       icon: Icons.people_outline,
                       text: "Friends",
+                      onTap: () => print('Friends'),
                     ),
                     CustomMenuListTitle(
                       icon: Icons.mail_outline,
                       text: "Requests",
+                      onTap: () => print('Requests'),
                     ),
-                    SizedBox(
-                      height: 280,
-                    ),
+                    const SizedBox(height: 300),
                     ListTile(
-                      leading: Icon(
+                      leading: const Icon(
                         Icons.logout_outlined,
                         color: Colors.red,
                       ),
-                      title: Text(
+                      title: const Text(
                         'Log Out',
                         style: TextStyle(color: Colors.red),
                       ),
+                      onTap: () => Navigator.pushNamed(context, '/'),
                     )
                   ],
                 ),
@@ -94,32 +90,3 @@ class Menu extends StatelessWidget {
     );
   }
 }
-
-class CustomMenuListTitle extends StatelessWidget {
-  const CustomMenuListTitle({
-    Key? key,
-    required this.icon,
-    required this.text,
-  }) : super(key: key);
-
-  final IconData icon;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        color: CustomColors.kGreen,
-      ),
-      title: Text(
-        text,
-        style: const TextStyle(
-            color: CustomColors.kBlue, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-}
-
-//Text(authProvider.currentUser!.name),
-// BorderRadius.vertical(bottom: Radius.circular(20))
