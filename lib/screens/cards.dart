@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:insults_album/constans/custom_colors.dart';
 import 'package:insults_album/services/cards_service.dart';
+import 'package:insults_album/widgets/waiting_indicator.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,13 +15,27 @@ import '../widgets/drawer/drawer_menu.dart';
 class CardsPage extends StatelessWidget {
   const CardsPage({super.key});
 
-  // void fetchCard() async {
-  //   AppCard card = await CardsService.fetchCard();
-  //   print(card.image);
-  // }
+  Future fetchCards(cardsIds) async {
+    List<AppCard> cards = [];
+
+    // cards = cardsIds
+    //     .map((elem) async => await CardsService.fetchCard(elem))
+    //     .toList();
+
+    for (var cardId in cardsIds) {
+      AppCard card = await CardsService.fetchCard(cardId);
+      cards.add(card);
+    }
+
+    return cards;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
+    fetchCards(authProvider.currentUser!.cards);
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -47,14 +62,28 @@ class CardsPage extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: GridView.count(
-            crossAxisCount: 2,
-            mainAxisSpacing: 6,
-            crossAxisSpacing: 6,
-            childAspectRatio: (.55),
-            children: List.generate(5, (index) {
-              return const CustomCard();
-            }),
+          child: FutureBuilder(
+            future: fetchCards(authProvider.currentUser!.cards),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 6,
+                  crossAxisSpacing: 6,
+                  childAspectRatio: (.55),
+                  // Creat un objeto custom card para cada objeto appcard que regresa fetchCards del snapshot
+                  children: snapshot.data
+                      .map<Widget>((card) => CustomCard(
+                          imageUri: card.image,
+                          name: card.name,
+                          status: card.status,
+                          species: card.species,
+                          location: card.location))
+                      .toList(),
+                );
+              }
+              return const WaitingIndicator();
+            },
           ),
         ),
       ),
@@ -63,9 +92,20 @@ class CardsPage extends StatelessWidget {
 }
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({
+  CustomCard({
+    required this.imageUri,
+    required this.name,
+    required this.status,
+    required this.species,
+    required this.location,
     Key? key,
   }) : super(key: key);
+
+  final String imageUri;
+  final String name;
+  final String status;
+  final String species;
+  final String location;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +124,7 @@ class CustomCard extends StatelessWidget {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(10)),
                 child: Image.network(
-                  'https://rickandmortyapi.com/api/character/avatar/452.jpeg',
+                  imageUri,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -97,7 +137,7 @@ class CustomCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     flexText(
-                        'Simon',
+                        name,
                         const TextStyle(
                             fontSize: 23, fontWeight: FontWeight.w800)),
                     const SizedBox(height: 7),
@@ -109,16 +149,15 @@ class CustomCard extends StatelessWidget {
                           color: Colors.green,
                         ),
                         const SizedBox(width: 4),
-                        flexText(
-                            'Alive - Human', const TextStyle(fontSize: 15)),
+                        flexText('$status - $species',
+                            const TextStyle(fontSize: 15)),
                       ],
                     ),
                     const SizedBox(height: 32),
                     Row(
                       children: [
                         Icon(Icons.location_on_outlined),
-                        flexText(
-                            "Earth (replacement dimension", const TextStyle()),
+                        flexText(location, const TextStyle()),
                       ],
                     )
                   ],
@@ -141,3 +180,18 @@ class CustomCard extends StatelessWidget {
     );
   }
 }
+
+// child: GridView.count(
+//             crossAxisCount: 2,
+//             mainAxisSpacing: 6,
+//             crossAxisSpacing: 6,
+//             childAspectRatio: (.55),
+//             children: List.generate(5, (index) {
+//               return const CustomCard();
+//             }),
+//           ),
+
+
+// List.(snapshot.data.length, (card) {
+//                     return CustomCard(imageUri: card.image, );
+//                   }),

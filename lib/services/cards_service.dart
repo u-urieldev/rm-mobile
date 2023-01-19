@@ -3,10 +3,10 @@ import 'dart:convert';
 import '../models/card.dart';
 
 class CardsService {
-  static Future fetchCard() async {
+  static Future fetchCard(String cardId) async {
     try {
       final headers = {"Content-Type": "application/json"};
-      final url = Uri.parse('http://localhost:3000/api/cards/get_card/72');
+      final url = Uri.parse('http://localhost:3000/api/cards/get_card/$cardId');
       final response = await http.get(url, headers: headers);
       AppCard card;
 
