@@ -28,13 +28,15 @@ class CustomCardDialog extends StatelessWidget {
   final TextStyle titleStyle =
       const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
   final TextStyle dataStyle = const TextStyle(fontSize: 18);
+  final TextStyle nameStyle =
+      const TextStyle(fontSize: 40, fontWeight: FontWeight.w800);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(30),
       child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(15)),
+        borderRadius: const BorderRadius.all(Radius.circular(13)),
         child: Container(
           color: Colors.white,
           child: ListView(
@@ -48,12 +50,7 @@ class CustomCardDialog extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      name,
-                      overflow: TextOverflow.clip,
-                      style:
-                          TextStyle(fontSize: 40, fontWeight: FontWeight.w800),
-                    ),
+                    Text(name, overflow: TextOverflow.clip, style: nameStyle),
                     const SizedBox(height: 10),
                     // -------------- Gender/ species ------------------
                     // ---- Titles  ---
@@ -95,18 +92,26 @@ class CustomCardDialog extends StatelessWidget {
                     Text('Origin', style: titleStyle),
                     Row(
                       children: [
-                        Icon(Icons.location_on_outlined),
+                        const Icon(Icons.location_on_outlined),
                         const SizedBox(width: 4),
-                        Text(origin, style: dataStyle),
+                        Flexible(
+                            child: Text(
+                          origin,
+                          style: dataStyle,
+                          overflow: TextOverflow.clip,
+                        )),
                       ],
                     ),
                     const SizedBox(height: 16),
                     Text('Last Unknow Location', style: titleStyle),
                     Row(
                       children: [
-                        Icon(Icons.location_on_outlined),
+                        const Icon(Icons.location_on_outlined),
                         const SizedBox(width: 4),
-                        Text(location, style: dataStyle),
+                        Flexible(
+                          child: Text(location,
+                              overflow: TextOverflow.clip, style: dataStyle),
+                        ),
                       ],
                     )
                   ],

@@ -33,7 +33,6 @@ class CustomCard extends StatelessWidget {
     if (status == "Dead") {
       return Colors.red;
     }
-
     // Other case
     return Color.fromARGB(255, 116, 114, 114);
   }
