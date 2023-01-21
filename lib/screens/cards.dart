@@ -14,7 +14,7 @@ import '../widgets/drawer/drawer_menu.dart';
 import '../widgets/custom_card.dart';
 
 class CardsPage extends StatelessWidget {
-  const CardsPage({super.key});
+  CardsPage({super.key});
 
   Future fetchCards(cardsIds) async {
     List<AppCard> cards = [];
@@ -75,15 +75,15 @@ class CardsPage extends StatelessWidget {
                   // Creat un objeto custom card para cada objeto appcard que regresa fetchCards del snapshot
                   children: snapshot.data
                       .map<Widget>((card) => CustomCard(
-                            imageUri: card.image,
-                            name: card.name,
-                            status: card.status,
-                            species: card.species,
-                            location: card.location,
-                            id: card.id,
-                            origin: card.origin,
-                            gender: card.gender,
-                          ))
+                          imageUri: card.image,
+                          name: card.name,
+                          status: card.status,
+                          species: card.species,
+                          location: card.location,
+                          id: card.id,
+                          origin: card.origin,
+                          gender: card.gender,
+                          episodes: card.episodes))
                       .toList(),
                 );
               }

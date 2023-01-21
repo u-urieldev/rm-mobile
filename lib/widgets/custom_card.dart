@@ -13,6 +13,7 @@ class CustomCard extends StatelessWidget {
     required this.status,
     required this.species,
     required this.location,
+    required this.episodes,
     Key? key,
   }) : super(key: key);
 
@@ -24,6 +25,7 @@ class CustomCard extends StatelessWidget {
   final String location;
   final String gender;
   final String origin;
+  final List<dynamic> episodes;
 
   Color getStatusColor() {
     if (status == "Alive") {
@@ -54,6 +56,7 @@ class CustomCard extends StatelessWidget {
               species: species,
               location: location,
               statusColor: getStatusColor(),
+              episodes: episodes,
             );
           },
         );

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../providers/loading_providers.dart';
+import 'package:provider/provider.dart';
+import 'custom_button.dart';
 
 class CustomCardDialog extends StatelessWidget {
   CustomCardDialog({
@@ -12,6 +15,7 @@ class CustomCardDialog extends StatelessWidget {
     required this.species,
     required this.location,
     required this.statusColor,
+    required this.episodes,
     Key? key,
   }) : super(key: key);
 
@@ -24,6 +28,7 @@ class CustomCardDialog extends StatelessWidget {
   final String gender;
   final String origin;
   final Color statusColor;
+  final List<dynamic> episodes;
 
   final TextStyle titleStyle =
       const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
@@ -33,6 +38,8 @@ class CustomCardDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loadingProvider = Provider.of<LoadingProvider>(context);
+
     return Padding(
       padding: EdgeInsets.all(30),
       child: ClipRRect(
@@ -41,10 +48,30 @@ class CustomCardDialog extends StatelessWidget {
           color: Colors.white,
           child: ListView(
             children: [
-              Image.network(
-                imageUri,
-                fit: BoxFit.cover,
-              ),
+              // ---       Image      ---
+              Stack(fit: StackFit.passthrough, children: [
+                Image.network(
+                  imageUri,
+                  fit: BoxFit.cover,
+                ),
+                Positioned(
+                  left: 240,
+                  top: 20,
+                  child: Container(
+                    width: 72,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(23)),
+                        color: Color.fromARGB(138, 77, 77, 77)),
+                    child: Center(
+                        child: Text(
+                      '$id / 826',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    )),
+                  ),
+                )
+              ]),
               Padding(
                 padding: EdgeInsets.all(15),
                 child: Column(
@@ -113,6 +140,38 @@ class CustomCardDialog extends StatelessWidget {
                               overflow: TextOverflow.clip, style: dataStyle),
                         ),
                       ],
+                    ),
+                    const SizedBox(height: 16),
+                    // ---------     Episodes       ----------
+                    GestureDetector(
+                      onTap: () {
+                        loadingProvider.isEpisode = !loadingProvider.isEpisode;
+                      },
+                      child: Row(
+                        children: [
+                          Text('Episodes', style: titleStyle),
+                          const Icon(
+                            Icons.arrow_drop_down,
+                            size: 25,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    // ----       Episodes list --------
+                    loadingProvider.isEpisode
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: episodes.map((e) => Text(e)).toList())
+                        : const SizedBox(height: 4),
+                    loadingProvider.isEpisode
+                        ? const SizedBox(height: 10)
+                        : const SizedBox(height: 0),
+                    // ----  Button    -------
+                    Center(
+                      child: CustomButton(
+                          label: const Text('Send'),
+                          action: () => print('Picado')),
                     )
                   ],
                 ),
