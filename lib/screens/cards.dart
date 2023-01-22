@@ -11,7 +11,7 @@ import '../models/card.dart';
 import 'dart:convert';
 import '../widgets/title_font.dart';
 import '../widgets/drawer/drawer_menu.dart';
-import '../widgets/custom_card.dart';
+import '../widgets/cards/custom_card.dart';
 
 class CardsPage extends StatelessWidget {
   CardsPage({super.key});

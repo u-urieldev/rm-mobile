@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../providers/loading_providers.dart';
+import '../../providers/loading_providers.dart';
 import 'package:provider/provider.dart';
-import 'custom_button.dart';
+import '../custom_button.dart';
 
 class CustomCardDialog extends StatelessWidget {
   CustomCardDialog({
@@ -41,7 +41,7 @@ class CustomCardDialog extends StatelessWidget {
     final loadingProvider = Provider.of<LoadingProvider>(context);
 
     return Padding(
-      padding: EdgeInsets.all(30),
+      padding: const EdgeInsets.all(30),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(13)),
         child: Container(
@@ -66,7 +66,7 @@ class CustomCardDialog extends StatelessWidget {
                     child: Center(
                         child: Text(
                       '$id / 826',
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     )),
                   ),
@@ -130,7 +130,7 @@ class CustomCardDialog extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    Text('Last Unknow Location', style: titleStyle),
+                    Text('Last Known Location', style: titleStyle),
                     Row(
                       children: [
                         const Icon(Icons.location_on_outlined),
