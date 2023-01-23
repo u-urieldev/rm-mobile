@@ -13,9 +13,11 @@ class MainPage extends StatelessWidget {
     final loadingProvider = Provider.of<LoadingProvider>(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (loadingProvider.isSingOut)
+      if (loadingProvider.isSingOut) {
         CustomHelpers.showCustomSnackBar(context, "Se ha cerrado sesion",
             "Sing out hecho correctamente", Colors.green);
+        loadingProvider.isSingOut = false;
+      }
     });
 
     return WillPopScope(

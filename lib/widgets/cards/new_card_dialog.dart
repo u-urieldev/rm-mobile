@@ -60,8 +60,7 @@ class NewCardDialog extends StatelessWidget {
                                 authProvider.currentUser!.uid,
                                 newCard.id.toString());
                             // Update app state
-                            authProvider
-                                .refreshSession(authProvider.currentUser!.uid);
+                            authProvider.refreshSession();
 
                             CustomHelpers.showCustomSnackBar(
                                 context,

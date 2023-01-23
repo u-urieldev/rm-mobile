@@ -112,8 +112,9 @@ class AuthProvider extends ChangeNotifier {
     return "Error inesperado";
   }
 
-  Future<String> refreshSession(String uid) async {
+  Future<String> refreshSession() async {
     try {
+      final uid = currentUser!.uid;
       //Referencia a coleccion en db
       CollectionReference users = _instance.collection("users");
 

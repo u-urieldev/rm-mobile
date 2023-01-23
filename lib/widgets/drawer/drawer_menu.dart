@@ -58,7 +58,7 @@ class Menu extends StatelessWidget {
                     CustomMenuListTitle(
                       icon: Icons.account_circle_outlined,
                       text: "Profile",
-                      onTap: () => print('Profile'),
+                      onTap: () => Navigator.pushNamed(context, '/profile'),
                     ),
                     CustomMenuListTitle(
                       icon: Icons.people_outline,

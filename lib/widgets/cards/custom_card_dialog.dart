@@ -4,6 +4,7 @@ import '../../providers/loading_providers.dart';
 import 'package:provider/provider.dart';
 import '../custom/custom_button.dart';
 import '../../constans/helpers.dart';
+import '../../constans/custom_fonts.dart';
 
 class CustomCardDialog extends StatelessWidget {
   CustomCardDialog({
@@ -28,12 +29,6 @@ class CustomCardDialog extends StatelessWidget {
   final String? gender;
   final String? origin;
   final List<dynamic>? episodes;
-
-  final TextStyle titleStyle =
-      const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
-  final TextStyle dataStyle = const TextStyle(fontSize: 18);
-  final TextStyle nameStyle =
-      const TextStyle(fontSize: 40, fontWeight: FontWeight.w800);
 
   @override
   Widget build(BuildContext context) {
@@ -77,16 +72,18 @@ class CustomCardDialog extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name!, overflow: TextOverflow.clip, style: nameStyle),
+              Text(name!,
+                  overflow: TextOverflow.clip, style: CustomFonts.nameStyle),
               const SizedBox(height: 10),
               // -------------- Gender/ species ------------------
               // ---- Titles  ---
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Expanded(child: Text('Gender ', style: titleStyle)),
                   Expanded(
-                    child: Text('Species', style: titleStyle),
+                      child: Text('Gender ', style: CustomFonts.titleStyle)),
+                  Expanded(
+                    child: Text('Species', style: CustomFonts.titleStyle),
                   )
                 ],
               ),
@@ -94,15 +91,15 @@ class CustomCardDialog extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(child: Text(gender!, style: dataStyle)),
+                  Expanded(child: Text(gender!, style: CustomFonts.dataStyle)),
                   Expanded(
-                    child: Text(species!, style: dataStyle),
+                    child: Text(species!, style: CustomFonts.dataStyle),
                   )
                 ],
               ),
               const SizedBox(height: 16),
               // -------------- status ------------------
-              Text('Status', style: titleStyle),
+              Text('Status', style: CustomFonts.titleStyle),
               Row(
                 children: [
                   Icon(
@@ -111,12 +108,12 @@ class CustomCardDialog extends StatelessWidget {
                     color: CustomHelpers.getStatusColor(status!),
                   ),
                   const SizedBox(width: 4),
-                  Text(status!, style: dataStyle),
+                  Text(status!, style: CustomFonts.dataStyle),
                 ],
               ),
               const SizedBox(height: 16),
               // -------------- Locations ------------------
-              Text('Origin', style: titleStyle),
+              Text('Origin', style: CustomFonts.titleStyle),
               Row(
                 children: [
                   const Icon(Icons.location_on_outlined),
@@ -124,20 +121,21 @@ class CustomCardDialog extends StatelessWidget {
                   Flexible(
                       child: Text(
                     origin!,
-                    style: dataStyle,
+                    style: CustomFonts.dataStyle,
                     overflow: TextOverflow.clip,
                   )),
                 ],
               ),
               const SizedBox(height: 16),
-              Text('Last Known Location', style: titleStyle),
+              Text('Last Known Location', style: CustomFonts.titleStyle),
               Row(
                 children: [
                   const Icon(Icons.location_on_outlined),
                   const SizedBox(width: 4),
                   Flexible(
                     child: Text(location!,
-                        overflow: TextOverflow.clip, style: dataStyle),
+                        overflow: TextOverflow.clip,
+                        style: CustomFonts.dataStyle),
                   ),
                 ],
               ),
@@ -149,7 +147,7 @@ class CustomCardDialog extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    Text('Episodes', style: titleStyle),
+                    Text('Episodes', style: CustomFonts.titleStyle),
                     const Icon(
                       Icons.arrow_drop_down,
                       size: 25,

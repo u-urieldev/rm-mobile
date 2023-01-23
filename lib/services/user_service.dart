@@ -15,8 +15,7 @@ class UserService {
       final Map<String, dynamic> responseBody = json.decode(response.body);
       //Parsear respuesta
       if (response.statusCode == 200) {
-        print("Hecho");
-        return responseBody; //["msg"];
+        return responseBody['status']; //["msg"];
       }
 
       //Si se llega a este punto hubo un error en el request, mostrar errores en terminal

@@ -32,10 +32,10 @@ class CardsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      CustomHelpers.showCustomSnackBar(context, "Login hecho correctamente",
-          "Bienvenido ${authProvider.currentUser!.name}", Colors.green);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   CustomHelpers.showCustomSnackBar(context, "Login hecho correctamente",
+    //       "Bienvenido ${authProvider.currentUser!.name}", Colors.green);
+    // });
 
     fetchCards(authProvider.currentUser!.cards);
 
