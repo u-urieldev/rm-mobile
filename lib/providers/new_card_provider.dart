@@ -18,4 +18,12 @@ class NewCardProvider extends ChangeNotifier {
     _card = value;
     notifyListeners();
   }
+
+  void setGetDelayed() async {
+    // Este future hace que la transicion de estados
+    // show -> get no se vea en la pantalla
+    await Future.delayed(const Duration(milliseconds: 800));
+    state = 'get';
+    card = null;
+  }
 }

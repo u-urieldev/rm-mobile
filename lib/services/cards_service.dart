@@ -21,4 +21,24 @@ class CardsService {
       print(e);
     }
   }
+
+  static Future addCard(String uid, String cardId) async {
+    try {
+      final headers = {"Content-Type": "application/json"};
+      final url = Uri.parse(
+          'http://localhost:3000/api/cards/add_card/${uid}?card_id=$cardId');
+      final response = await http.put(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseBody = json.decode(response.body);
+        print(responseBody['status']);
+
+        return responseBody['status'];
+      }
+
+      return "error";
+    } catch (e) {
+      print(e);
+    }
+  }
 }

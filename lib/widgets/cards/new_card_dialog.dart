@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:insults_album/providers/auth_provider.dart';
+import 'package:insults_album/providers/loading_providers.dart';
+import 'package:insults_album/services/user_service.dart';
 import 'package:insults_album/widgets/cards/custom_card_dialog.dart';
 import 'package:insults_album/widgets/custom/custom_button.dart';
 import 'package:insults_album/widgets/custom/waiting_indicator.dart';
@@ -20,13 +23,12 @@ class NewCardDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newCardProvider = Provider.of<NewCardProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
     // WillPopScope acts as a dispose method here
     return WillPopScope(
       onWillPop: () {
-        newCardProvider.state = 'get';
-        newCardProvider.card = null;
+        newCardProvider.setGetDelayed();
         Navigator.pop(context);
-
         return Future.value(false);
       },
       child: DialogLayout(
@@ -49,14 +51,22 @@ class NewCardDialog extends StatelessWidget {
                             final AppCard newCard =
                                 await CardsService.fetchCard(
                                     CustomHelpers.getRandomCard());
-                            newCardProvider.card = newCard;
 
+                            newCardProvider.card = newCard;
                             newCardProvider.state = 'show';
+
+                            // Add to database
+                            final response = await CardsService.addCard(
+                                authProvider.currentUser!.uid,
+                                newCard.id.toString());
+                            // Update app state
+                            authProvider
+                                .refreshSession(authProvider.currentUser!.uid);
 
                             CustomHelpers.showCustomSnackBar(
                                 context,
                                 "Your new card is ready",
-                                "Card getting corectly",
+                                "Card ${newCard.id} getting corectly",
                                 Colors.green);
                           })
                     ],

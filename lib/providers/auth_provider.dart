@@ -87,7 +87,7 @@ class AuthProvider extends ChangeNotifier {
 
         //Actualizar estado de app
         notifyListeners();
-        print(currentUser!.profile_image);
+
         return "exito";
       }
 
@@ -110,5 +110,57 @@ class AuthProvider extends ChangeNotifier {
     }
 
     return "Error inesperado";
+  }
+
+  Future<String> refreshSession(String uid) async {
+    try {
+      //Referencia a coleccion en db
+      CollectionReference users = _instance.collection("users");
+
+      //Buscar los datos del usuario en su coleccion
+      DocumentSnapshot snapshot = await users.doc(uid).get();
+
+      if (snapshot.exists) {
+        // Keep the user data in the user variable
+        final userData = snapshot.data() as Map<String, dynamic>;
+
+        currentUser = AppUser.fromMap(userData);
+
+        //Actualizar estado de app
+        notifyListeners();
+
+        return "exito";
+      }
+
+      return "Error, no se encontraron datos del usuario";
+    } on FirebaseAuthException catch (e) {
+      //Regresar mensaje de error
+      switch (e.code) {
+        case "invalid-email":
+          return "Formato de correo incorrecto";
+
+        case "wrong-password":
+          return "La contraseña es incorrecta";
+
+        case "user-not-found":
+          return "Cuenta no registrada";
+
+        case "user-disabled":
+          return "Cuenta temporalmente deshabilitada";
+      }
+    }
+
+    return "Error inesperado";
+  }
+
+  Future<String> singOut() async {
+    try {
+      _firebaseAuth.signOut();
+      print('Logout hecho correctamente');
+      return 'exito';
+    } catch (e) {
+      print(e);
+      return 'Error: $e';
+    }
   }
 }

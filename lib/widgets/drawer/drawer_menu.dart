@@ -4,6 +4,7 @@ import '../../providers/auth_provider.dart';
 import '../../constans/custom_colors.dart';
 import 'profile_image.dart';
 import 'custom_menu_list_title.dart';
+import '../../providers/loading_providers.dart';
 
 class Menu extends StatelessWidget {
   const Menu({
@@ -13,6 +14,7 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
+    final loadingProvider = Provider.of<LoadingProvider>(context);
 
     return Drawer(
       child: Column(
@@ -70,16 +72,18 @@ class Menu extends StatelessWidget {
                     ),
                     const SizedBox(height: 300),
                     ListTile(
-                      leading: const Icon(
-                        Icons.logout_outlined,
-                        color: Colors.red,
-                      ),
-                      title: const Text(
-                        'Log Out',
-                        style: TextStyle(color: Colors.red),
-                      ),
-                      onTap: () => Navigator.pushNamed(context, '/'),
-                    )
+                        leading: const Icon(
+                          Icons.logout_outlined,
+                          color: Colors.red,
+                        ),
+                        title: const Text(
+                          'Log Out',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        onTap: () {
+                          loadingProvider.isSingOut = true;
+                          Navigator.pushNamed(context, '/');
+                        })
                   ],
                 ),
               ),

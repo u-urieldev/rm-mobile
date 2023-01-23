@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:insults_album/widgets/custom/waiting_indicator.dart';
 import '../../providers/loading_providers.dart';
 import 'package:provider/provider.dart';
 import '../custom/custom_button.dart';
 import '../../constans/helpers.dart';
-import 'custom_card.dart';
 
 class CustomCardDialog extends StatelessWidget {
   CustomCardDialog({
@@ -46,6 +46,13 @@ class CustomCardDialog extends StatelessWidget {
           Image.network(
             imageUri!,
             fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return const Padding(
+                padding: EdgeInsets.symmetric(vertical: 100.0),
+                child: WaitingIndicator(),
+              );
+            },
           ),
           Positioned(
             left: 240,

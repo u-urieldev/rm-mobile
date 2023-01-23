@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:insults_album/providers/auth_provider.dart';
+import 'package:insults_album/providers/loading_providers.dart';
 import '../widgets/custom/custom_button.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:http/http.dart' as http;
-import '../models/episode.dart';
-import 'dart:convert';
+import 'package:provider/provider.dart';
+import '../constans/helpers.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final loadingProvider = Provider.of<LoadingProvider>(context);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (loadingProvider.isSingOut)
+        CustomHelpers.showCustomSnackBar(context, "Se ha cerrado sesion",
+            "Sing out hecho correctamente", Colors.green);
+    });
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
