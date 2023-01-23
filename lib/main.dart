@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:insults_album/providers/auth_provider.dart';
 import 'package:insults_album/providers/loading_providers.dart';
+import 'package:insults_album/providers/new_card_provider.dart';
 import 'screens/auth/login_page.dart';
 import 'screens/auth/register_page.dart';
 import 'package:insults_album/screens/main_page.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => LoadingProvider())
+        ChangeNotifierProvider(create: (_) => LoadingProvider()),
+        ChangeNotifierProvider(create: (_) => NewCardProvider())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:insults_album/providers/loading_providers.dart';
-import '../../widgets/custom_button.dart';
-import '../../widgets/custom_text_field.dart';
+import '../../widgets/custom/custom_button.dart';
+import '../../widgets/custom/custom_text_field.dart';
 import '../../providers/auth_provider.dart';
 import 'package:provider/provider.dart';
-import '../../widgets/waiting_indicator.dart';
+import '../../widgets/custom/waiting_indicator.dart';
+import '../../constans/helpers.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -62,10 +63,10 @@ class LoginPage extends StatelessWidget {
                         if (response != "exito") {
                           print("Error: $response");
                           loadingProvider.isWaiting = false;
+                          CustomHelpers.showCustomSnackBar(context,
+                              "Erro al hacer login", response, Colors.red);
                           return;
                         }
-
-                        print("Login hecho correctamente");
 
                         // Move to the next screen
                         Navigator.pushNamed(context, '/cards');

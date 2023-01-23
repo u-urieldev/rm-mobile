@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:insults_album/constans/custom_colors.dart';
+import 'package:insults_album/constans/helpers.dart';
 import 'package:insults_album/services/cards_service.dart';
-import 'package:insults_album/widgets/waiting_indicator.dart';
+import 'package:insults_album/widgets/custom/waiting_indicator.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/card.dart';
-import 'package:http/http.dart' as http;
-import '../models/card.dart';
-import 'dart:convert';
-import '../widgets/title_font.dart';
+import '../widgets/custom/title_font.dart';
 import '../widgets/drawer/drawer_menu.dart';
 import '../widgets/cards/custom_card.dart';
+import '../widgets/cards/new_card_dialog.dart';
 
 class CardsPage extends StatelessWidget {
   CardsPage({super.key});
@@ -35,6 +32,11 @@ class CardsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      CustomHelpers.showCustomSnackBar(context, "Login hecho correctamente",
+          "Bienvenido ${authProvider.currentUser!.name}", Colors.green);
+    });
+
     fetchCards(authProvider.currentUser!.cards);
 
     return WillPopScope(
@@ -52,7 +54,13 @@ class CardsPage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black,
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: ((context) {
+                  return NewCardDialog();
+                }));
+          },
           child: Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: TitleFont(

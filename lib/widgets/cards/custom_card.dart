@@ -1,43 +1,31 @@
-import 'dart:ffi';
-
+import '../custom/dialog_layout.dart';
 import 'package:flutter/material.dart';
 import 'custom_card_dialog.dart';
+import '../../constans/helpers.dart';
 
 class CustomCard extends StatelessWidget {
   CustomCard({
-    required this.imageUri,
-    required this.gender,
-    required this.id,
-    required this.origin,
-    required this.name,
-    required this.status,
-    required this.species,
-    required this.location,
-    required this.episodes,
+    this.imageUri,
+    this.gender,
+    this.id,
+    this.origin,
+    this.name,
+    this.status,
+    this.species,
+    this.location,
+    this.episodes,
     Key? key,
   }) : super(key: key);
 
-  final int id;
-  final String imageUri;
-  final String name;
-  final String status;
-  final String species;
-  final String location;
-  final String gender;
-  final String origin;
-  final List<dynamic> episodes;
-
-  Color getStatusColor() {
-    if (status == "Alive") {
-      return Colors.green;
-    }
-
-    if (status == "Dead") {
-      return Colors.red;
-    }
-    // Other case
-    return Color.fromARGB(255, 116, 114, 114);
-  }
+  final int? id;
+  final String? imageUri;
+  final String? name;
+  final String? status;
+  final String? species;
+  final String? location;
+  final String? gender;
+  final String? origin;
+  final List<dynamic>? episodes;
 
   @override
   Widget build(BuildContext context) {
@@ -46,17 +34,18 @@ class CustomCard extends StatelessWidget {
         showDialog(
           context: context,
           builder: (context) {
-            return CustomCardDialog(
-              imageUri: imageUri,
-              gender: gender,
-              id: id,
-              origin: origin,
-              name: name,
-              status: status,
-              species: species,
-              location: location,
-              statusColor: getStatusColor(),
-              episodes: episodes,
+            return DialogLayout(
+              child: CustomCardDialog(
+                imageUri: imageUri,
+                gender: gender,
+                id: id,
+                origin: origin,
+                name: name,
+                status: status,
+                species: species,
+                location: location,
+                episodes: episodes,
+              ),
             );
           },
         );
@@ -74,7 +63,7 @@ class CustomCard extends StatelessWidget {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(10)),
                 child: Image.network(
-                  imageUri,
+                  imageUri!,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -87,7 +76,7 @@ class CustomCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     flexText(
-                        name,
+                        name!,
                         const TextStyle(
                             fontSize: 23, fontWeight: FontWeight.w800)),
                     const SizedBox(height: 7),
@@ -96,7 +85,7 @@ class CustomCard extends StatelessWidget {
                         Icon(
                           Icons.fiber_manual_record,
                           size: 13,
-                          color: getStatusColor(),
+                          color: CustomHelpers.getStatusColor(status!),
                         ),
                         const SizedBox(width: 4),
                         flexText('$status - $species',
@@ -107,7 +96,7 @@ class CustomCard extends StatelessWidget {
                     Row(
                       children: [
                         Icon(Icons.location_on_outlined),
-                        flexText(location, const TextStyle()),
+                        flexText(location!, const TextStyle()),
                       ],
                     )
                   ],

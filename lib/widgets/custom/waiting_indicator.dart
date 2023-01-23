@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
-import '../constans/custom_colors.dart';
+import '../../constans/custom_colors.dart';
 
 class WaitingIndicator extends StatelessWidget {
   const WaitingIndicator({
@@ -22,7 +22,11 @@ class WaitingIndicator extends StatelessWidget {
           direction: Axis.vertical,
           center: const Text(
             "Loading...",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: Colors.black,
+                decoration: TextDecoration.none),
           ),
         ),
       ),

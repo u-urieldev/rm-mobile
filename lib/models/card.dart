@@ -1,5 +1,5 @@
 class AppCard {
-  final int id;
+  final int? id;
   final String? name;
   final String? status;
   final String? species;
@@ -10,7 +10,7 @@ class AppCard {
   final List<dynamic>? episodes;
 
   AppCard({
-    required this.id,
+    this.id,
     this.name,
     this.status,
     this.species,
