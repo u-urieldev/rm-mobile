@@ -24,4 +24,25 @@ class UserService {
       print("Error: $e");
     }
   }
+
+  static Future changePhoto(AppUser user, String newPhoto) async {
+    try {
+      final headers = {"Content-Type": "application/json"};
+      final body = json.encode({"photo_url": newPhoto});
+      final url =
+          Uri.parse('http://localhost:3000/api/users/change_photo/${user.uid}');
+      final response = await http.put(url, headers: headers, body: body);
+
+      final Map<String, dynamic> responseBody = json.decode(response.body);
+      //Parsear respuesta
+      if (response.statusCode == 200) {
+        return responseBody['status']; //["msg"];
+      }
+
+      //Si se llega a este punto hubo un error en el request, mostrar errores en terminal
+      print(responseBody);
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
 }

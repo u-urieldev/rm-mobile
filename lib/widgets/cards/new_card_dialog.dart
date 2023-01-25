@@ -11,6 +11,7 @@ import '../../providers/new_card_provider.dart';
 import 'package:provider/provider.dart';
 import '../../models/card.dart';
 import '../../constans/helpers.dart';
+import '../../providers/profile_images_provider.dart';
 
 // Todos los cambios de contenido de este widget suceden en el mismo
 // utilizando el estado del provider
@@ -24,6 +25,8 @@ class NewCardDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final newCardProvider = Provider.of<NewCardProvider>(context);
     final authProvider = Provider.of<AuthProvider>(context);
+    final profileImageProvider = Provider.of<ProfileImagesProvider>(context);
+
     // WillPopScope acts as a dispose method here
     return WillPopScope(
       onWillPop: () {
@@ -60,7 +63,9 @@ class NewCardDialog extends StatelessWidget {
                                 authProvider.currentUser!.uid,
                                 newCard.id.toString());
                             // Update app state
-                            authProvider.refreshSession();
+                            await authProvider.refreshSession();
+                            await profileImageProvider
+                                .fetchImages(authProvider.currentUser!.cards);
 
                             CustomHelpers.showCustomSnackBar(
                                 context,

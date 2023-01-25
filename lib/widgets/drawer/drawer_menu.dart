@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../constans/custom_colors.dart';
-import 'profile_image.dart';
+import '../profile_image/profile_image.dart';
 import 'custom_menu_list_title.dart';
 import '../../providers/loading_providers.dart';
 

@@ -6,6 +6,7 @@ import '../../providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 import '../../widgets/custom/waiting_indicator.dart';
 import '../../constans/helpers.dart';
+import '../../providers/profile_images_provider.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -18,6 +19,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     final loadingProvider = Provider.of<LoadingProvider>(context);
+    final profileImageProvider = Provider.of<ProfileImagesProvider>(context);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -65,9 +67,13 @@ class LoginPage extends StatelessWidget {
                           loadingProvider.isWaiting = false;
                           CustomHelpers.showCustomSnackBar(context,
                               "Erro al hacer login", response, Colors.red);
+
+                          await profileImageProvider
+                              .fetchImages(authProvider.currentUser!.cards);
                           return;
                         }
-
+                        await profileImageProvider
+                            .fetchImages(authProvider.currentUser!.cards);
                         // Move to the next screen
                         Navigator.pushNamed(context, '/cards');
                         loadingProvider.isWaiting = false;

@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../models/app_user.dart';
+import '../models/card.dart';
+import '../services/cards_service.dart';
 
 class AuthProvider extends ChangeNotifier {
   /*
