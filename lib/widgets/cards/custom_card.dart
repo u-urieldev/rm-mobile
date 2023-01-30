@@ -1,4 +1,4 @@
-import '../custom/dialog_layout.dart';
+import '../layout/dialog_layout.dart';
 import 'package:flutter/material.dart';
 import 'custom_card_dialog.dart';
 import '../../constans/helpers.dart';

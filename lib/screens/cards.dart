@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:insults_album/constans/helpers.dart';
 import 'package:insults_album/services/cards_service.dart';
+import 'package:insults_album/widgets/custom/custom_fab.dart';
 import 'package:insults_album/widgets/custom/waiting_indicator.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
@@ -52,22 +53,13 @@ class CardsPage extends StatelessWidget {
             size: 25,
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: ((context) {
-                  return NewCardDialog();
-                }));
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 5),
-            child: TitleFont(
-              text: "+",
-              size: 32,
-            ),
-          ),
+        floatingActionButton: CustomFAB(
+          text: "+",
+          action: () => showDialog(
+              context: context,
+              builder: ((context) {
+                return NewCardDialog();
+              })),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -103,3 +95,10 @@ class CardsPage extends StatelessWidget {
     );
   }
 }
+//  showDialog(
+//             context: context,
+//             builder: ((context) {
+//               return NewCardDialog();
+//             }));
+
+

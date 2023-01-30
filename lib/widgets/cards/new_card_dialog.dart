@@ -5,7 +5,7 @@ import 'package:insults_album/services/user_service.dart';
 import 'package:insults_album/widgets/cards/custom_card_dialog.dart';
 import 'package:insults_album/widgets/custom/custom_button.dart';
 import 'package:insults_album/widgets/custom/waiting_indicator.dart';
-import '../custom/dialog_layout.dart';
+import '../layout/dialog_layout.dart';
 import '../../services/cards_service.dart';
 import '../../providers/new_card_provider.dart';
 import 'package:provider/provider.dart';

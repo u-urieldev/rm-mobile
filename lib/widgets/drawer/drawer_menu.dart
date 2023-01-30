@@ -63,7 +63,7 @@ class Menu extends StatelessWidget {
                     CustomMenuListTitle(
                       icon: Icons.people_outline,
                       text: "Friends",
-                      onTap: () => print('Friends'),
+                      onTap: () => Navigator.pushNamed(context, '/friends'),
                     ),
                     CustomMenuListTitle(
                       icon: Icons.mail_outline,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:insults_album/constans/custom_colors.dart';
 import 'package:insults_album/constans/helpers.dart';
 import 'package:insults_album/widgets/custom/custom_button.dart';
+import 'package:insults_album/widgets/layout/small_dialog_layout.dart';
 import 'package:insults_album/widgets/profile_image/profile_image.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
@@ -55,58 +56,50 @@ class ProfilePage extends StatelessWidget {
                     showDialog(
                         context: context,
                         builder: (context) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 270, horizontal: 60),
-                            child: Material(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(15)),
-                              color: Colors.black,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    'Enter your new name',
-                                    style: TextStyle(
-                                        color: CustomColors.kBlue,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  CustomTextField(
-                                    label: 'Name',
-                                    icon: Icons.account_circle_outlined,
-                                    controller: (value) => nameValue = value,
-                                  ),
-                                  CustomButton(
-                                      label: const Text('Change'),
-                                      action: () async {
-                                        final response =
-                                            await UserService.changeName(
-                                                authProvider.currentUser!,
-                                                nameValue);
-                                        nameValue = "";
-                                        Navigator.pop(context);
+                          return SmallDialogLayout(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Enter your new name',
+                                  style: TextStyle(
+                                      color: CustomColors.kBlue,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                CustomTextField(
+                                  label: 'Name',
+                                  icon: Icons.account_circle_outlined,
+                                  controller: (value) => nameValue = value,
+                                ),
+                                CustomButton(
+                                    label: const Text('Change'),
+                                    action: () async {
+                                      final response =
+                                          await UserService.changeName(
+                                              authProvider.currentUser!,
+                                              nameValue);
+                                      nameValue = "";
+                                      Navigator.pop(context);
 
-                                        if (response == 'succes') {
-                                          authProvider.refreshSession();
-                                          CustomHelpers.showCustomSnackBar(
-                                              context,
-                                              'Exito',
-                                              'Nombre cambiado correctamente',
-                                              Colors.green);
-                                          return;
-                                        }
-
+                                      if (response == 'succes') {
+                                        authProvider.refreshSession();
                                         CustomHelpers.showCustomSnackBar(
                                             context,
-                                            'Error',
-                                            'Ocurrio un error al cambiar el nombre',
-                                            Colors.red);
-                                      })
-                                ],
-                              ),
+                                            'Exito',
+                                            'Nombre cambiado correctamente',
+                                            Colors.green);
+                                        return;
+                                      }
+
+                                      CustomHelpers.showCustomSnackBar(
+                                          context,
+                                          'Error',
+                                          'Ocurrio un error al cambiar el nombre',
+                                          Colors.red);
+                                    })
+                              ],
                             ),
                           );
                         });

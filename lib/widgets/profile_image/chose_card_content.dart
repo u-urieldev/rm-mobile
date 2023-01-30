@@ -4,7 +4,7 @@ import 'package:insults_album/providers/auth_provider.dart';
 import 'package:insults_album/providers/profile_images_provider.dart';
 import 'package:insults_album/services/user_service.dart';
 import 'package:insults_album/widgets/custom/custom_button.dart';
-import 'package:insults_album/widgets/custom/dialog_layout.dart';
+import 'package:insults_album/widgets/layout/dialog_layout.dart';
 import 'package:provider/provider.dart';
 
 class ChooseCardContent extends StatelessWidget {
