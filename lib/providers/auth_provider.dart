@@ -32,13 +32,16 @@ class AuthProvider extends ChangeNotifier {
 
       //Crear objeto de usuario
       currentUser = AppUser(
-          name: name,
-          uid: uid,
-          email: email,
-          cards: [],
-          friends: [],
-          requests: [],
-          profile_image: "");
+        name: name,
+        uid: uid,
+        email: email,
+        cards: [],
+        friends: [],
+        requests: [],
+        //Defacult image
+        profile_image:
+            "https://files.cults3d.com/uploaders/14307074/illustration-file/3c12b15c-003f-409f-a9b6-b0dcde4495d8/render0001.png",
+      );
 
       notifyListeners();
 

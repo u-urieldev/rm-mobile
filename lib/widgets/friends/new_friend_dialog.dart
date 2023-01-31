@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:insults_album/constans/custom_colors.dart';
+import 'package:insults_album/constans/helpers.dart';
+import 'package:insults_album/providers/auth_provider.dart';
 import 'package:insults_album/providers/new_friend_provider.dart';
+import 'package:insults_album/services/friends_service.dart';
 import 'package:insults_album/services/user_service.dart';
 import 'package:insults_album/widgets/custom/custom_button.dart';
 import 'package:insults_album/widgets/custom/custom_text_field.dart';
@@ -10,12 +13,13 @@ import 'package:insults_album/widgets/layout/small_dialog_layout.dart';
 import 'package:provider/provider.dart';
 
 class NewFriendDialog extends StatelessWidget {
-  const NewFriendDialog({super.key});
+  NewFriendDialog({super.key});
 
+  String nameText = "";
   @override
   Widget build(BuildContext context) {
     final newFriendProvider = Provider.of<NewFriendProvider>(context);
-    String nameText = "";
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return WillPopScope(
       onWillPop: () {
@@ -106,7 +110,24 @@ class NewFriendDialog extends StatelessWidget {
                             ),
                           ),
                           CustomButton(
-                              label: Text('Send request'), action: () {})
+                              label: Text('Send request'),
+                              action: () async {
+                                final response =
+                                    await FriendsService.sendRequest(
+                                        authProvider.currentUser!.uid,
+                                        newFriendProvider.friend!.uid);
+
+                                if (response == 'exito') {
+                                  nameText = "";
+                                  newFriendProvider.setStateDelayed();
+                                  Navigator.pop(context);
+                                  CustomHelpers.showCustomSnackBar(
+                                      context,
+                                      'Solicitud enviada',
+                                      'Solicitud enviada correctamente',
+                                      Colors.green);
+                                }
+                              })
                         ],
                       )
 
@@ -114,9 +135,13 @@ class NewFriendDialog extends StatelessWidget {
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const Text(
-                            'User not found',
-                            style: TextStyle(color: Colors.white, fontSize: 17),
+                          Flexible(
+                            child: Text(
+                              'User \'$nameText\' not found',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 17),
+                              overflow: TextOverflow.clip,
+                            ),
                           ),
                           CustomButton(
                               label: Text('Search again'),
