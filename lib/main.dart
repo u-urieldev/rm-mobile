@@ -4,6 +4,7 @@ import 'package:insults_album/providers/loading_providers.dart';
 import 'package:insults_album/providers/new_friend_provider.dart';
 import 'package:insults_album/providers/new_card_provider.dart';
 import 'package:insults_album/providers/profile_images_provider.dart';
+import 'package:insults_album/screens/requests_page.dart';
 import 'screens/auth/login_page.dart';
 import 'screens/auth/register_page.dart';
 import 'package:insults_album/screens/main_page.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
           "/cards": (context) => CardsPage(),
           "/profile": (context) => ProfilePage(),
           "/friends": (context) => FriendsPage(),
+          "/requests": (context) => RequestsPage(),
         },
       ),
     );

@@ -68,7 +68,7 @@ class Menu extends StatelessWidget {
                     CustomMenuListTitle(
                       icon: Icons.mail_outline,
                       text: "Requests",
-                      onTap: () => print('Requests'),
+                      onTap: () => Navigator.pushNamed(context, '/requests'),
                     ),
                     const SizedBox(height: 300),
                     ListTile(
