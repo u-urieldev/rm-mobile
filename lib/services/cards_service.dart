@@ -1,9 +1,11 @@
 import 'package:http/http.dart' as http;
+import 'package:insults_album/models/app_user.dart';
 import 'dart:convert';
 import '../models/card.dart';
 
 class CardsService {
-  static Future fetchCard(String cardId) async {
+  static Future fetchCard(String cardId,
+      {bool isGift = false, AppUser? sender = null}) async {
     try {
       final headers = {"Content-Type": "application/json"};
       final url = Uri.parse('http://localhost:3000/api/cards/get_card/$cardId');
@@ -12,6 +14,9 @@ class CardsService {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseBody = json.decode(response.body);
+        responseBody['card']['isGift'] = isGift;
+        responseBody['card']['sender'] = sender;
+
         card = AppCard.fromJson(responseBody['card']);
 
         return card;

@@ -24,7 +24,7 @@ class ProfileImagesProvider extends ChangeNotifier {
     _imageList = [];
     int id = 0;
     for (var cardId in cardsIds) {
-      AppCard card = await CardsService.fetchCard(cardId);
+      AppCard card = await CardsService.fetchCard(cardId, isGift: false);
       _imageList.add(ProfileImageSelector(
         image: Image.network(card.image!),
         url: card.image!,

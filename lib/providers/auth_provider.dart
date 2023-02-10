@@ -91,8 +91,6 @@ class AuthProvider extends ChangeNotifier {
 
         currentUser = AppUser.fromMap(userData);
 
-        print(currentUser!.gifts);
-
         //Actualizar estado de app
         notifyListeners();
 

@@ -68,6 +68,7 @@ class UserService {
 
   static Future getUserByName(String name) async {
     try {
+      print(name);
       final headers = {"Content-Type": "application/json"};
       final url =
           Uri.parse('http://localhost:3000/api/users/get_user_name/$name');
