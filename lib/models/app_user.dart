@@ -8,6 +8,7 @@ class AppUser {
     required this.cards,
     required this.friends,
     required this.requests,
+    required this.gifts,
     required this.profile_image,
   });
 
@@ -17,6 +18,7 @@ class AppUser {
   List<String> cards;
   List<String> friends;
   List<String> requests;
+  List<Map<String, dynamic>> gifts;
   String profile_image;
 
   Map<String, dynamic> toMap() => {
@@ -26,6 +28,7 @@ class AppUser {
         "cards": cards,
         "friends": friends,
         "requests": requests,
+        "gifts": gifts,
         "profile_image": profile_image
       };
 
@@ -41,5 +44,6 @@ class AppUser {
       cards: List<String>.from(json['cards'].map((x) => x)),
       friends: List<String>.from(json['friends'].map((x) => x)),
       requests: List<String>.from(json['requests'].map((x) => x)),
+      gifts: List<Map<String, dynamic>>.from(json['gifts']),
       profile_image: json['profile_image']);
 }

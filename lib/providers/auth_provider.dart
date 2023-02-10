@@ -38,7 +38,8 @@ class AuthProvider extends ChangeNotifier {
         cards: [],
         friends: [],
         requests: [],
-        //Defacult image
+        gifts: [],
+        //Default image
         profile_image:
             "https://files.cults3d.com/uploaders/14307074/illustration-file/3c12b15c-003f-409f-a9b6-b0dcde4495d8/render0001.png",
       );
@@ -89,6 +90,8 @@ class AuthProvider extends ChangeNotifier {
         final userData = snapshot.data() as Map<String, dynamic>;
 
         currentUser = AppUser.fromMap(userData);
+
+        print(currentUser!.gifts);
 
         //Actualizar estado de app
         notifyListeners();
