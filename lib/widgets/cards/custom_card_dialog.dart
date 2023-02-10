@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:insults_album/models/app_user.dart';
+import 'package:insults_album/providers/auth_provider.dart';
+import 'package:insults_album/services/gifts_service.dart';
+import 'package:insults_album/services/user_service.dart';
 import 'package:insults_album/widgets/custom/waiting_indicator.dart';
+import 'package:insults_album/widgets/layout/dialog_layout.dart';
 import '../../providers/loading_providers.dart';
 import 'package:provider/provider.dart';
 import '../custom/custom_button.dart';
@@ -30,9 +35,21 @@ class CustomCardDialog extends StatelessWidget {
   final String? origin;
   final List<dynamic>? episodes;
 
+  Future<List<AppUser>> fetchFriends(List<String> friends) async {
+    List<AppUser> friendsObjects = [];
+
+    for (var friendUid in friends) {
+      AppUser friendUser = await UserService.getUser(friendUid);
+      friendsObjects.add(friendUser);
+    }
+
+    return friendsObjects;
+  }
+
   @override
   Widget build(BuildContext context) {
     final loadingProvider = Provider.of<LoadingProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return ListView(
       children: [
@@ -146,9 +163,9 @@ class CustomCardDialog extends StatelessWidget {
                   loadingProvider.isEpisode = !loadingProvider.isEpisode;
                 },
                 child: Row(
-                  children: [
+                  children: const [
                     Text('Episodes', style: CustomFonts.titleStyle),
-                    const Icon(
+                    Icon(
                       Icons.arrow_drop_down,
                       size: 25,
                     ),
@@ -168,8 +185,123 @@ class CustomCardDialog extends StatelessWidget {
               // ----  Button    -------
               Center(
                 child: CustomButton(
-                    label: const Text('Send'), action: () => print('Picado')),
-              )
+                  label: const Text('Send'),
+                  action: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return DialogLayout(
+                          child: Scaffold(
+                            appBar: AppBar(
+                              automaticallyImplyLeading: false,
+                              title: const Text(
+                                'Send to a friend',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor:
+                                  Color.fromARGB(255, 194, 191, 191),
+                            ),
+                            body: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: FutureBuilder(
+                                future: fetchFriends(
+                                    authProvider.currentUser!.friends),
+                                builder: ((context, AsyncSnapshot snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    return ListView.builder(
+                                        itemCount: snapshot.data.length,
+                                        itemBuilder: (context, int index) {
+                                          // Todo: Widget de amigo aqui
+                                          return GestureDetector(
+                                            onTap: () {
+                                              GiftService.sendGift(
+                                                      authProvider
+                                                          .currentUser!.uid,
+                                                      snapshot.data[index].uid,
+                                                      id.toString())
+                                                  // Refresh session
+                                                  .then((value) => authProvider
+                                                      .refreshSession()
+                                                      // Close both dialogs
+                                                      .then((value) =>
+                                                          Navigator.pop(
+                                                              context))
+                                                      .then((value) =>
+                                                          Navigator.pop(
+                                                              context)))
+                                                  // Show snackbar
+                                                  .then((value) => CustomHelpers
+                                                      .showCustomSnackBar(
+                                                          context,
+                                                          "Gift sended",
+                                                          "Card sended to ${snapshot.data[index].name} correctly",
+                                                          Colors.green));
+                                            },
+                                            child: Card(
+                                              elevation: 2,
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  15))),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                        radius: 40,
+                                                        backgroundImage:
+                                                            NetworkImage(snapshot
+                                                                .data[index]
+                                                                .profile_image)),
+                                                    const SizedBox(width: 20),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          snapshot
+                                                              .data[index].name,
+                                                          style: const TextStyle(
+                                                              fontSize: 21,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                        ),
+                                                        Text(
+                                                          snapshot.data[index]
+                                                              .email,
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 14),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                  }
+
+                                  return const WaitingIndicator();
+                                }),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),

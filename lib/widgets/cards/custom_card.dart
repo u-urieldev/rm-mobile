@@ -54,7 +54,7 @@ class CustomCard extends StatelessWidget {
         elevation: 4,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
-        color: Color.fromARGB(255, 194, 191, 191),
+        color: const Color.fromARGB(255, 194, 191, 191),
         child: Column(
           children: [
             Expanded(
