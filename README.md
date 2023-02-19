@@ -19,3 +19,4 @@ A Rick and Morty's characters album mobile app made in Flutter.
 - Flutter
 - Node.js / Express
 - Firebase 
+- [https://www.themoviedb.org/](https://rickandmortyapi.com/)
