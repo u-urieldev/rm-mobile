@@ -6,7 +6,7 @@ A Rick and Morty's characters album mobile app made in Flutter.
 
 ## Demo
 
-[![vide demo](https://img.youtube.com/vi/aZwru9jhKRE&ab/0.jpg)](https://www.youtube.com/watch?v=aZwru9jhKRE&ab)
+[![vide demo](https://img.youtube.com/vi/aZwru9jhKRE/0.jpg)](https://www.youtube.com/watch?v=aZwru9jhKRE&ab)
 
 ## Features
 
