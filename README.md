@@ -1,4 +1,4 @@
-# insults_album
+# Rick and Morty App.
 
 A new Flutter project.
 
