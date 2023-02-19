@@ -1,6 +1,6 @@
 # Rick and Morty App.
 
-A Rick and Morty's characters album app mobile app made in Flutter.
+A Rick and Morty's characters album mobile app made in Flutter.
 
 ## Features
 
