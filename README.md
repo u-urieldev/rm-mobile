@@ -38,7 +38,7 @@ Database:
 <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/> </a>
 </p>
 
-Api: [https](https://rickandmortyapi.com/)
+Api: [https://rickandmortyapi.com/](https://rickandmortyapi.com/)
 
 
 
