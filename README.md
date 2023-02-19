@@ -8,6 +8,12 @@ A Rick and Morty's characters album mobile app made in Flutter.
 
 [![vide demo](https://img.youtube.com/vi/aZwru9jhKRE/0.jpg)](https://www.youtube.com/watch?v=aZwru9jhKRE&ab)
 
+    <iframe width="560" height="315"
+src="https://www.youtube.com/embed/aZwru9jhKRE" 
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
+
 ## Features
 
 * Get more than 800 character cards by playing _find three Morthys game_.
